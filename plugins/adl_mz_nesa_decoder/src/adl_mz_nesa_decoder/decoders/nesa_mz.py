@@ -2,7 +2,6 @@ import logging
 
 import pandas as pd
 from adl_ftp_plugin.registries import FTPDecoder
-from django.utils import timezone as dj_timezone
 
 logger = logging.getLogger(__name__)
 
@@ -11,21 +10,6 @@ class NESAMZDecoder(FTPDecoder):
     type = "nesamz"
     compat_type = "nesamz"
     display_name = "NESAMZ FTP Decoder - Mozambique"
-    
-    def get_matching_files(self, station_link, files, start_date=None, end_date=None):
-        # get all the initial matching files
-        matching_files = super().get_matching_files(station_link, files, start_date=start_date, end_date=end_date)
-        
-        if station_link.start_date:
-            return matching_files
-        
-        timezone = station_link.timezone
-        
-        # Only get files for today if no start_date specified
-        zero_padded_day_today = [f"{dj_timezone.localtime(timezone=timezone).day:02}"]
-        matching_files = [file for file in matching_files if any(date in file for date in zero_padded_day_today)]
-        
-        return matching_files
     
     def decode(self, file_path):
         """
