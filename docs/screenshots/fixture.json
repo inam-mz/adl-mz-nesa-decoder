@@ -1,0 +1,79 @@
+{
+  "capture": {
+    "connection": "Demo NESA (mock source)",
+    "ingest": true,
+    "probe": true,
+    "station_checks": ["DEMO001"],
+    "wait": 240,
+    "present_interval": 15
+  },
+  "connection": {
+    "model": "adl_ftp_plugin.NetworkFTP",
+    "fields": {
+      "name": "Demo NESA (mock source)",
+      "plugin": "adl_ftp_plugin",
+      "stations_timezone": "Africa/Maputo",
+      "plugin_processing_interval": 1,
+      "connection_type": "ftp",
+      "host": "mock_ftp",
+      "port": 21,
+      "username": "demo",
+      "password": "demo",
+      "passive_mode": true,
+      "timeout": 20,
+      "decoder": "nesamz"
+    },
+    "children": {
+      "variable_mappings": [
+        {
+          "adl_parameter": "Air Temperature",
+          "file_variable_name": "1;2",
+          "file_variable_unit": "degC"
+        },
+        {
+          "adl_parameter": "Relative Humidity",
+          "file_variable_name": "1;3",
+          "file_variable_unit": "percent"
+        },
+        {
+          "adl_parameter": "Atmospheric Pressure",
+          "file_variable_name": "2;1",
+          "file_variable_unit": "hPa"
+        },
+        {
+          "adl_parameter": "Precipitation",
+          "file_variable_name": "3;1",
+          "file_variable_unit": "mm"
+        },
+        {
+          "adl_parameter": "Wind Speed",
+          "file_variable_name": "4;1",
+          "file_variable_unit": "m/s"
+        },
+        {
+          "adl_parameter": "Wind Direction",
+          "file_variable_name": "4;2",
+          "file_variable_unit": "degree"
+        },
+        {
+          "adl_parameter": "Solar Radiation",
+          "file_variable_name": "5;1",
+          "file_variable_unit": "W/m^2"
+        }
+      ]
+    }
+  },
+  "station_links": [
+    {
+      "model": "adl_ftp_plugin.FTPStationLink",
+      "station": "DEMO001",
+      "fields": {
+        "ftp_path": "/data/nesa",
+        "file_pattern": "NESA_MAPUTO_*.txt",
+        "listing_strategy": "pattern_only",
+        "skip_already_downloaded_files": false,
+        "start_date": "$NOW-1d"
+      }
+    }
+  ]
+}

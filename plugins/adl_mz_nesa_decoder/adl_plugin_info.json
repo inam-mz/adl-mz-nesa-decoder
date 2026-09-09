@@ -1,9 +1,9 @@
 {
   "name": "ADL MZ Nesa Decoder",
   "description": "ADL Decoder for Mozambique NESA Stations",
-  "author": "TODO",
-  "author_url": "TODO",
-  "url": "TODO",
-  "license": "TODO",
-  "contact": "TODO"
+  "author": "WMO RAF",
+  "author_url": "https://github.com/wmo-raf",
+  "url": "https://github.com/inam-mz/adl-mz-nesa-decoder",
+  "license": "MIT",
+  "contact": "eotenyo@wmo.int"
 }
